@@ -6,43 +6,26 @@ import { API_ALERTS } from '@/shared/config/endpoints';
 import { Container } from '@/shared/ui/Container';
 import { Sparkline } from '@/shared/ui/Sparkline';
 import { Alert } from '@/shared/types/alert';
+import { formatTime, timeAgo } from '@/shared/lib/date';
 
 const POLL_INTERVAL = 60000;
-
-function formatTime(iso: string) {
-  const d = new Date(iso);
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const month = months[d.getMonth()];
-  const day = d.getDate();
-  const hours = d.getHours().toString().padStart(2, '0');
-  const mins = d.getMinutes().toString().padStart(2, '0');
-  return `${month} ${day} ${hours}:${mins}`;
-}
-
-function timeAgo(iso: string) {
-  const diff = Date.now() - new Date(iso).getTime();
-  const mins = Math.floor(diff / 60000);
-  if (mins < 1) return 'now';
-  if (mins < 60) return `${mins}m ago`;
-  const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return `${hrs}h ago`;
-  return `${Math.floor(hrs / 24)}d ago`;
-}
 
 export function AlertFeed() {
   const { data: alerts, loading, loadData } = useGenericGet();
 
-  const fetchAlerts = useCallback(() => {
-    loadData({ api: API_ALERTS });
+  const refreshAlerts = useCallback(() => {
+    loadData({ api: API_ALERTS, isRefreshing: true });
   }, [loadData]);
 
   useEffect(() => {
-    fetchAlerts();
-    const interval = setInterval(fetchAlerts, POLL_INTERVAL);
+    loadData({ api: API_ALERTS });
+    const interval = setInterval(refreshAlerts, POLL_INTERVAL);
     return () => clearInterval(interval);
-  }, [fetchAlerts]);
+  }, [loadData, refreshAlerts]);
 
-  const list: Alert[] = Array.isArray(alerts) ? alerts.slice(0, 5) : [];
+  const list: Alert[] = Array.isArray(alerts)
+    ? alerts.filter((a) => Date.now() - new Date(a.createdAt).getTime() < 86400000)
+    : [];
 
   return (
     <section className="py-24 border-t border-white/5">

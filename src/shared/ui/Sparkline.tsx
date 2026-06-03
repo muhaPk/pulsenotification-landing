@@ -32,7 +32,6 @@ export function Sparkline({ symbol, data: staticData, width = 80, height = 28, c
     if (!symbol) return;
 
     let cancelled = false;
-    setCandles(null);
 
     fetchSparklineData(symbol).then((result) => {
       if (!cancelled) setCandles(result);
@@ -59,10 +58,12 @@ export function Sparkline({ symbol, data: staticData, width = 80, height = 28, c
   if (highlight && createdAt && candles) {
     const alertMs = new Date(createdAt).getTime();
     const hourMs = 3600000;
+    let minDist = Infinity;
     for (let i = 0; i < candles.length; i++) {
-      if (alertMs >= candles[i].time && alertMs < candles[i].time + hourMs) {
+      const dist = Math.abs(alertMs - (candles[i].time + hourMs / 2));
+      if (dist < minDist) {
+        minDist = dist;
         highlightIndex = i;
-        break;
       }
     }
   }
@@ -81,10 +82,10 @@ export function Sparkline({ symbol, data: staticData, width = 80, height = 28, c
         <>
           <path d={fullPath} fill="none" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           <path
-            d={prices
-              .slice(highlightIndex, highlightIndex + 2)
-              .map((v, i) => `${i === 0 ? 'M' : 'L'}${toPoint(v, highlightIndex + i)}`)
-              .join(' ')}
+            d={(() => {
+              const start = Math.min(highlightIndex, prices.length - 2);
+              return prices.slice(start, start + 2).map((v, i) => `${i === 0 ? 'M' : 'L'}${toPoint(v, start + i)}`).join(' ');
+            })()}
             fill="none"
             stroke={highlightColor}
             strokeWidth="1.5"
