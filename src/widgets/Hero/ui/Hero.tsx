@@ -9,6 +9,15 @@ export function Hero() {
 
       <Container className="relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+          <div className="relative mx-auto max-w-xs lg:max-w-none">
+            <img
+              src="/images/phone.png"
+              alt="PulseNotification app preview"
+              className="w-sm h-auto"
+            />
+          </div>
+
           <div className="text-center lg:text-left">
             {/* <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-yellow-400/20 bg-yellow-400/5 text-yellow-400 text-xs font-medium mb-8">
               Real-time crypto market monitoring
@@ -30,13 +39,7 @@ export function Hero() {
             <p className="mt-4 text-xs text-gray-500">No credit card required · 30-day free trial</p>
           </div>
 
-          <div className="relative mx-auto max-w-xs lg:max-w-none">
-            <img
-              src="/images/phone.png"
-              alt="PulseNotification app preview"
-              className="w-sm h-auto"
-            />
-          </div>
+          
         </div>
       </Container>
     </section>

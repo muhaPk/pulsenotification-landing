@@ -1,10 +1,8 @@
 import { Header } from '@/widgets/Header/ui/Header';
 import { Hero } from '@/widgets/Hero/ui/Hero';
-import { Features } from '@/widgets/Features/ui/Features';
-import { Stats } from '@/widgets/Stats/ui/Stats';
-import { CTA } from '@/widgets/CTA/ui/CTA';
 import { Footer } from '@/widgets/Footer/ui/Footer';
 import { AlertFeed } from '@/widgets/AlertFeed/ui/AlertFeed';
+import { Info } from '@/widgets/Info/ui/Info';
 
 export function HomePage() {
   return (
@@ -14,8 +12,7 @@ export function HomePage() {
         <Hero />
         {/* <Features /> */}
         <AlertFeed />
-        {/* <Stats /> */}
-        {/* <CTA /> */}
+        {/* <Info /> */}
       </main>
       <Footer />
     </div>

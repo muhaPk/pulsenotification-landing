@@ -4,10 +4,6 @@ import { useState } from 'react';
 import { Container } from '@/shared/ui/Container';
 import { Button } from '@/shared/ui/Button';
 
-const navLinks = [
-  { label: 'Features', href: '#features' },
-  { label: 'Stats', href: '#stats' },
-];
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -20,11 +16,6 @@ export function Header() {
         </a>
 
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm text-gray-400 hover:text-white transition-colors">
-              {l.label}
-            </a>
-          ))}
           <Button>Download Android app</Button>
         </nav>
 
@@ -41,16 +32,6 @@ export function Header() {
 
       {open && (
         <div className="md:hidden border-t border-white/5 bg-gray-950 px-4 py-4 space-y-3">
-          {navLinks.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="block text-sm text-gray-400 hover:text-white"
-              onClick={() => setOpen(false)}
-            >
-              {l.label}
-            </a>
-          ))}
           <Button className="w-full">Get Started</Button>
         </div>
       )}

@@ -33,7 +33,7 @@ export function AlertFeed() {
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-white">Recent Alerts</h2>
           <p className="mt-3 text-gray-400 max-w-xl mx-auto">
-            Latest volatility spikes detected across all monitored pairs.
+            Latest alerts on user-tracked pairs
           </p>
         </div>
 
@@ -52,7 +52,7 @@ export function AlertFeed() {
                 return (
                   <div
                     key={alert.id}
-                    className="flex items-center gap-4 rounded-xl border border-white/5 bg-bg-wrapper/50 p-4 hover:bg-bg-wrapper/80 transition-colors"
+                    className="flex items-center gap-4 border-b border-white/10 transition-colors pb-6 mb-6"
                   >
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
