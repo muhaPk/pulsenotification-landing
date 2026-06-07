@@ -12,16 +12,40 @@ interface SparklineProps {
   color?: string;
   highlight?: 'up' | 'down';
   createdAt?: string;
+  pairType?: string;
 }
 
-async function fetchSparklineData(symbol: string): Promise<Candle[]> {
-  const res = await fetch(`/api/sparkline/${symbol}`);
-  if (!res.ok) return [];
-  const json = await res.json();
-  return (json.data || []) as Candle[];
+function klinesBaseUrl(pairType: string): string {
+  return pairType === 'futures'
+    ? 'https://fapi.binance.com/fapi/v1/klines'
+    : 'https://api.binance.com/api/v3/klines';
 }
 
-export function Sparkline({ symbol, data: staticData, width = 80, height = 28, color, highlight, createdAt }: SparklineProps) {
+const inflight = new Map<string, Promise<Candle[]>>();
+
+async function fetchSparklineData(symbol: string, pairType: string): Promise<Candle[]> {
+  const key = `${symbol}_${pairType}`;
+  if (inflight.has(key)) return inflight.get(key)!;
+
+  const url = `${klinesBaseUrl(pairType)}?symbol=${symbol.toUpperCase()}&interval=1h&limit=48`;
+  const promise = (async () => {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) return [];
+      const data = await res.json();
+      return (data as any[]).map((k: any) => ({ time: k[0], price: parseFloat(k[4]) }));
+    } catch {
+      return [];
+    } finally {
+      inflight.delete(key);
+    }
+  })();
+
+  inflight.set(key, promise);
+  return promise;
+}
+
+export function Sparkline({ symbol, pairType = 'spot', data: staticData, width = 80, height = 28, color, highlight, createdAt }: SparklineProps) {
   const [candles, setCandles] = useState<Candle[] | null>(null);
 
   useEffect(() => {
@@ -33,12 +57,12 @@ export function Sparkline({ symbol, data: staticData, width = 80, height = 28, c
 
     let cancelled = false;
 
-    fetchSparklineData(symbol).then((result) => {
+    fetchSparklineData(symbol, pairType).then((result) => {
       if (!cancelled) setCandles(result);
     });
 
     return () => { cancelled = true; };
-  }, [symbol, staticData]);
+  }, [symbol, pairType, staticData]);
 
   const prices = candles?.map((c) => c.price);
   if (!prices || prices.length < 2) return null;

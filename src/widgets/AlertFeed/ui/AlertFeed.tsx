@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useCallback } from 'react';
-import { useGenericGet } from '@/shared/hooks/useGenericGet';
+import { useGenericGetWeb } from '@/shared/hooks/useGenericGetWeb';
 import { API_ALERTS } from '@/shared/config/endpoints';
 import { Container } from '@/shared/ui/Container';
 import { Sparkline } from '@/shared/ui/Sparkline';
@@ -11,7 +11,7 @@ import { formatTime, timeAgo } from '@/shared/lib/date';
 const POLL_INTERVAL = 60000;
 
 export function AlertFeed() {
-  const { data: alerts, loading, loadData } = useGenericGet();
+  const { data: alerts, loading, loadData } = useGenericGetWeb();
 
   const refreshAlerts = useCallback(() => {
     loadData({ api: API_ALERTS, isRefreshing: true });
@@ -73,6 +73,7 @@ export function AlertFeed() {
                     <div className="hidden sm:block shrink-0">
                       <Sparkline
                         symbol={`${alert.base}${alert.target}`}
+                        pairType={alert.pairType}
                         width={64}
                         height={36}
                         color={isPump ? '#22c55e' : '#ef4444'}

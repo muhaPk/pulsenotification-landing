@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react';
-import { useAxios } from './useAxios';
-import { LoadDataParams, TGenericGet } from '@/shared/types/request';
+import { useState, useCallback } from "react";
+import { useAxios } from "./useAxiosWeb";
+import { LoadDataParams, TGenericGet } from "@/shared/types/request";
 
-export const useGenericGet = (): TGenericGet => {
+export const useGenericGetWeb = (): TGenericGet => {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
