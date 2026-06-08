@@ -41,5 +41,3 @@ export const iconBgInactive = '#29313d';
 export const borderColor = '#666';
 export const borderSettingsColor = '#46484C20';
 
-export const switcherBg = '#5E64FC';
-export const switcherColor = '#fff';

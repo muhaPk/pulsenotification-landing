@@ -2,7 +2,7 @@ import { Container } from '@/shared/ui/Container';
 
 export function Hero() {
   return (
-    <section className="relative pt-32 overflow-hidden">
+    <section className="relative pt-32 pb-4 overflow-hidden">
 
       <Container className="relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -21,12 +21,11 @@ export function Hero() {
             </h1>
 
             <p className="mt-6 text-lg text-label max-w-2xl leading-relaxed">
-              PulseNotification monitors thousands of crypto pairs across Binance, Bybit, OKX, Kraken, and Coinbase.
               Get instant push notifications when abnormal price movements are detected.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row items-center lg:items-start gap-4">
-              <a href="https://github.com/muhaPk/pulsenotification_FE/releases/download/v1.0.0/pulsenotification.apk" target="_blank" rel="noopener noreferrer"
+              <a href="https://github.com/muhaPk/pulsenotification_FE/releases/download/v1.0.1/pulsenotification.apk" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 font-semibold rounded-xl transition-all duration-200 px-8 py-4 bg-accent text-black hover:brightness-110 shadow-lg shadow-accent/25 no-underline"
               >
                 <svg className="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

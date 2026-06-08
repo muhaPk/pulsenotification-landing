@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "PulseNotification — Real-time Crypto Volatility Monitor",
   description:
-    "Monitor thousands of crypto pairs across Binance, Bybit, OKX, Kraken, and Coinbase. Get instant push notifications when abnormal price movements are detected.",
+    "Get instant push notifications when abnormal price movements are detected.",
   openGraph: {
     title: "PulseNotification — Real-time Crypto Volatility Monitor",
     description:
