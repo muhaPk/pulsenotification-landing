@@ -9,15 +9,15 @@ const stats = [
 
 export function Stats() {
   return (
-    <section id="stats" className="py-20 border-t border-white/5">
+    <section id="stats" className="py-20 border-t border-title/5">
       <Container>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((s) => (
             <div key={s.label} className="text-center">
-              <div className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">
+              <div className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-title to-paragraph">
                 {s.value}
               </div>
-              <div className="mt-2 text-sm text-gray-500">{s.label}</div>
+              <div className="mt-2 text-sm text-paragraph">{s.label}</div>
             </div>
           ))}
         </div>

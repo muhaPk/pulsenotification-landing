@@ -1,11 +1,8 @@
 import { Container } from '@/shared/ui/Container';
-import { Button } from '@/shared/ui/Button';
 
 export function Hero() {
   return (
     <section className="relative pt-32 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_#f3b20610,_transparent_50%)]" />
 
       <Container className="relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -19,24 +16,28 @@ export function Hero() {
           </div>
 
           <div className="text-center lg:text-left">
-            {/* <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-yellow-400/20 bg-yellow-400/5 text-yellow-400 text-xs font-medium mb-8">
-              Real-time crypto market monitoring
-            </div> */}
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight max-w-4xl">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary leading-tight tracking-tight max-w-4xl">
               Never miss a volatility spike again
             </h1>
 
-            <p className="mt-6 text-lg text-gray-400 max-w-2xl leading-relaxed">
+            <p className="mt-6 text-lg text-label max-w-2xl leading-relaxed">
               PulseNotification monitors thousands of crypto pairs across Binance, Bybit, OKX, Kraken, and Coinbase.
               Get instant push notifications when abnormal price movements are detected.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row items-center lg:items-start gap-4">
-              <Button className="text-base px-8 py-4">Download Android app</Button>
+              <a href="https://github.com/muhaPk/pulsenotification_FE/releases/download/v1.0.0/pulsenotification.apk" target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 font-semibold rounded-xl transition-all duration-200 px-8 py-4 bg-accent text-black hover:brightness-110 shadow-lg shadow-accent/25 no-underline"
+              >
+                <svg className="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeWidth={2} d="M12 4v12m0 0l-4-4m4 4l4-4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" />
+                </svg>
+                <span className="flex flex-col items-start">
+                  <span className="text-base leading-tight">Download apk 1.0.0</span>
+                  <span className="text-xs leading-tight opacity-70 font-normal">pulse notification</span>
+                </span>
+              </a>
             </div>
-
-            <p className="mt-4 text-xs text-gray-500">No credit card required · 30-day free trial</p>
           </div>
 
           

@@ -6,7 +6,7 @@ import { Info } from '@/widgets/Info/ui/Info';
 
 export function HomePage() {
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-background text-white">
       <Header />
       <main>
         <Hero />

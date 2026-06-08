@@ -3,13 +3,13 @@ import { Button } from '@/shared/ui/Button';
 
 export function CTA() {
   return (
-    <section className="py-24 border-t border-white/5">
+    <section className="py-24 border-t border-title/5">
       <Container className="text-center">
-        <div className="max-w-2xl mx-auto rounded-2xl border border-yellow-400/20 bg-gradient-to-b from-yellow-400/5 to-transparent p-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
+        <div className="max-w-2xl mx-auto rounded-2xl border border-accent/20 bg-gradient-to-b from-accent/5 to-transparent p-12">
+          <h2 className="text-3xl sm:text-4xl font-bold text-title">
             Ready to catch every move?
           </h2>
-          <p className="mt-4 text-gray-400 max-w-md mx-auto">
+          <p className="mt-4 text-label max-w-md mx-auto">
             Join traders who never miss a volatility spike. Start monitoring in under a minute.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">

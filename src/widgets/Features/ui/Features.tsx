@@ -59,13 +59,13 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="py-24 border-t border-white/5">
+    <section id="features" className="py-24 border-t border-title/5">
       <Container>
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
+          <h2 className="text-3xl sm:text-4xl font-bold text-title">
             Everything a crypto trader needs
           </h2>
-          <p className="mt-4 text-gray-400 max-w-xl mx-auto">
+          <p className="mt-4 text-label max-w-xl mx-auto">
             PulseNotification combines real-time monitoring with smart alerting so you never miss a move.
           </p>
         </div>
@@ -74,13 +74,13 @@ export function Features() {
           {features.map((f) => (
             <div
               key={f.title}
-              className="group rounded-xl border border-white/5 bg-gray-900/30 p-6 hover:bg-gray-900/60 hover:border-yellow-400/20 transition-all duration-300"
+              className="group rounded-xl border border-title/5 bg-bg-wrapper/50 p-6 hover:bg-bg-wrapper hover:border-accent/20 transition-all duration-300"
             >
-              <div className="w-10 h-10 rounded-lg bg-yellow-400/10 text-yellow-400 flex items-center justify-center mb-4 group-hover:bg-yellow-400/20 transition-colors">
+              <div className="w-10 h-10 rounded-lg bg-accent/10 text-accent flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
                 {f.icon}
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">{f.title}</h3>
-              <p className="text-sm text-gray-400 leading-relaxed">{f.description}</p>
+              <h3 className="text-lg font-semibold text-title mb-2">{f.title}</h3>
+              <p className="text-sm text-label leading-relaxed">{f.description}</p>
             </div>
           ))}
         </div>

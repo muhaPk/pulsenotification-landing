@@ -28,22 +28,22 @@ export function AlertFeed() {
     : [];
 
   return (
-    <section className="py-24 border-t border-white/5">
+    <section className="py-24 border-t border-title/5">
       <Container>
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">Recent Alerts</h2>
-          <p className="mt-3 text-gray-400 max-w-xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold text-title">Recent Alerts</h2>
+          <p className="mt-3 text-label max-w-xl mx-auto">
             Latest alerts on user-tracked pairs
           </p>
         </div>
 
         {loading && list.length === 0 ? (
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin w-6 h-6 border-2 border-yellow-400 border-t-transparent rounded-full" />
+            <div className="animate-spin w-6 h-6 border-2 border-accent border-t-transparent rounded-full" />
           </div>
         ) : list.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-500">No alerts yet. Alerts will appear here when price movements are detected.</p>
+            <p className="text-paragraph">No alerts yet. Alerts will appear here when price movements are detected.</p>
           </div>
         ) : (
           <div className="max-w-3xl mx-auto space-y-3">
@@ -52,11 +52,11 @@ export function AlertFeed() {
                 return (
                   <div
                     key={alert.id}
-                    className="flex items-center gap-4 border-b border-white/10 transition-colors pb-6 mb-6"
+                    className="flex items-center gap-4 border-b border-title/10 transition-colors pb-6 mb-6"
                   >
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-white font-oswald-700 text-base">
+                        <span className="text-title font-oswald-700 text-base">
                           {alert.base}/{alert.target}
                         </span>
                         <span
@@ -66,7 +66,7 @@ export function AlertFeed() {
                         >
                           {alert.pairType === 'futures' ? 'FUT' : 'SPOT'}
                         </span>
-                        <span className="text-xs text-gray-500 capitalize hidden sm:inline">{alert.exchange}</span>
+                        <span className="text-xs text-paragraph capitalize hidden sm:inline">{alert.exchange}</span>
                       </div>
                     </div>
 
@@ -86,7 +86,7 @@ export function AlertFeed() {
                       <div className={`text-sm font-bold ${isPump ? 'text-green-500' : 'text-red-500'}`}>
                         {isPump ? '+' : ''}{alert.changePct.toFixed(2)}%
                       </div>
-                      <div className="text-gray-500 text-xs hidden sm:block" title={formatTime(alert.createdAt)}>
+                      <div className="text-paragraph text-xs hidden sm:block" title={formatTime(alert.createdAt)}>
                         {timeAgo(alert.createdAt)}
                       </div>
                     </div>
