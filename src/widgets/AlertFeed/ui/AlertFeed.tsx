@@ -2,31 +2,26 @@
 
 import { useEffect, useCallback } from 'react';
 import { useGenericGetWeb } from '@/shared/hooks/useGenericGetWeb';
-import { API_ALERTS, API_ALERTS_PROXY } from '@/shared/config/endpoints';
+import { API_ALERTS } from '@/shared/config/endpoints';
 import { Container } from '@/shared/ui/Container';
 import { Sparkline } from '@/shared/ui/Sparkline';
 import { Alert } from '@/shared/types/alert';
 import { formatTime, timeAgo } from '@/shared/lib/date';
-import { API_CONFIG } from '@/config/config';
 
 const POLL_INTERVAL = 60000;
-const USE_PROXY = process.env.NEXT_PUBLIC_USE_PROXY === 'true';
 
 export function AlertFeed() {
   const { data: alerts, loading, loadData } = useGenericGetWeb();
 
-  const alertsApi = USE_PROXY ? API_ALERTS_PROXY : API_ALERTS;
-  console.log('[AlertFeed] BASE_URL:', API_CONFIG.BASE_URL, '| alertsApi:', alertsApi, '| USE_PROXY:', USE_PROXY);
-
   const refreshAlerts = useCallback(() => {
-    loadData({ api: alertsApi, isRefreshing: true, isExternal: USE_PROXY });
-  }, [loadData, alertsApi]);
+    loadData({ api: API_ALERTS, isRefreshing: true });
+  }, [loadData]);
 
   useEffect(() => {
-    loadData({ api: alertsApi, isExternal: USE_PROXY });
+    loadData({ api: API_ALERTS });
     const interval = setInterval(refreshAlerts, POLL_INTERVAL);
     return () => clearInterval(interval);
-  }, [loadData, refreshAlerts, alertsApi]);
+  }, [loadData, refreshAlerts]);
 
   const list: Alert[] = Array.isArray(alerts)
     ? alerts.filter((a) => Date.now() - new Date(a.createdAt).getTime() < 5400000)
@@ -41,12 +36,6 @@ export function AlertFeed() {
             Latest alerts on user-tracked pairs
           </p>
         </div>
-
-        {typeof window !== 'undefined' && (
-          <div className="text-xs text-yellow-400 text-center mb-4 font-mono break-all">
-            URL: {API_CONFIG.BASE_URL}{alertsApi}
-          </div>
-        )}
 
         {loading && list.length === 0 ? (
           <div className="flex items-center justify-center py-12">
