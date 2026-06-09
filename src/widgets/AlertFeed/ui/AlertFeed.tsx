@@ -7,6 +7,7 @@ import { Container } from '@/shared/ui/Container';
 import { Sparkline } from '@/shared/ui/Sparkline';
 import { Alert } from '@/shared/types/alert';
 import { formatTime, timeAgo } from '@/shared/lib/date';
+import { API_CONFIG } from '@/config/config';
 
 const POLL_INTERVAL = 60000;
 const USE_PROXY = process.env.NEXT_PUBLIC_USE_PROXY === 'true';
@@ -15,6 +16,7 @@ export function AlertFeed() {
   const { data: alerts, loading, loadData } = useGenericGetWeb();
 
   const alertsApi = USE_PROXY ? API_ALERTS_PROXY : API_ALERTS;
+  console.log('[AlertFeed] BASE_URL:', API_CONFIG.BASE_URL, '| alertsApi:', alertsApi, '| USE_PROXY:', USE_PROXY);
 
   const refreshAlerts = useCallback(() => {
     loadData({ api: alertsApi, isRefreshing: true, isExternal: USE_PROXY });
@@ -39,6 +41,12 @@ export function AlertFeed() {
             Latest alerts on user-tracked pairs
           </p>
         </div>
+
+        {typeof window !== 'undefined' && (
+          <div className="text-xs text-yellow-400 text-center mb-4 font-mono break-all">
+            URL: {API_CONFIG.BASE_URL}{alertsApi}
+          </div>
+        )}
 
         {loading && list.length === 0 ? (
           <div className="flex items-center justify-center py-12">
