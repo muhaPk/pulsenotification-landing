@@ -24,7 +24,7 @@ export function AlertFeed() {
   }, [loadData, refreshAlerts]);
 
   const list: Alert[] = Array.isArray(alerts)
-    ? alerts.filter((a) => Date.now() - new Date(a.createdAt).getTime() < 86400000)
+    ? alerts.filter((a) => Date.now() - new Date(a.createdAt).getTime() < 5400000)
     : [];
 
   return (
