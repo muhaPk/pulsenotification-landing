@@ -25,7 +25,7 @@ export function Hero() {
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row items-center lg:items-start gap-4">
-              <a href="https://github.com/muhaPk/pulsenotification_FE/releases/download/v1.0.1/pulsenotification.apk" target="_blank" rel="noopener noreferrer"
+              <a href="https://api.pulsenotification.com/downloads/pulsenotification.apk" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 font-semibold rounded-xl transition-all duration-200 px-8 py-4 bg-accent text-black hover:brightness-110 shadow-lg shadow-accent/25 no-underline"
               >
                 <svg className="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
