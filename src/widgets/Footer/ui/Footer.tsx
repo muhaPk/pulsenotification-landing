@@ -7,24 +7,24 @@ export function Footer() {
         <a href="/">
           <img src="/images/logo.png" alt="PulseNotification" className="h-8 w-auto" />
         </a>
-        <div className="flex items-center gap-4 text-xs text-paragraph">
+        <div className="flex items-center gap-4">
           <a
             href="https://t.me/PulseNotificationGroup"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-accent"
+            className="text-sm text-label hover:text-accent transition-colors no-underline"
           >
-            Telegram Group
+            Group
           </a>
           <a
             href="https://t.me/PulseNotification"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-accent"
+            className="text-sm text-label hover:text-accent transition-colors no-underline"
           >
-            Telegram Channel
+            Channel
           </a>
-          <span>&copy; {new Date().getFullYear()} PulseNotification.</span>
+          <span className="text-xs text-paragraph">&copy; {new Date().getFullYear()} PulseNotification.</span>
         </div>
       </Container>
     </footer>

@@ -2,26 +2,29 @@
 
 import { useEffect, useCallback } from 'react';
 import { useGenericGetWeb } from '@/shared/hooks/useGenericGetWeb';
-import { API_ALERTS } from '@/shared/config/endpoints';
+import { API_ALERTS, API_ALERTS_PROXY } from '@/shared/config/endpoints';
 import { Container } from '@/shared/ui/Container';
 import { Sparkline } from '@/shared/ui/Sparkline';
 import { Alert } from '@/shared/types/alert';
 import { formatTime, timeAgo } from '@/shared/lib/date';
 
 const POLL_INTERVAL = 60000;
+const USE_PROXY = process.env.NEXT_PUBLIC_USE_PROXY === 'true';
 
 export function AlertFeed() {
   const { data: alerts, loading, loadData } = useGenericGetWeb();
 
+  const alertsApi = USE_PROXY ? API_ALERTS_PROXY : API_ALERTS;
+
   const refreshAlerts = useCallback(() => {
-    loadData({ api: API_ALERTS, isRefreshing: true });
-  }, [loadData]);
+    loadData({ api: alertsApi, isRefreshing: true, isExternal: USE_PROXY });
+  }, [loadData, alertsApi]);
 
   useEffect(() => {
-    loadData({ api: API_ALERTS });
+    loadData({ api: alertsApi, isExternal: USE_PROXY });
     const interval = setInterval(refreshAlerts, POLL_INTERVAL);
     return () => clearInterval(interval);
-  }, [loadData, refreshAlerts]);
+  }, [loadData, refreshAlerts, alertsApi]);
 
   const list: Alert[] = Array.isArray(alerts)
     ? alerts.filter((a) => Date.now() - new Date(a.createdAt).getTime() < 5400000)

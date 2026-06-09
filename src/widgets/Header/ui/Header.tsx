@@ -17,6 +17,25 @@ export function Header() {
         </a>
 
 
+        <nav className="hidden md:flex items-center gap-6">
+          <a
+            href="https://t.me/PulseNotificationGroup"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-label hover:text-accent transition-colors no-underline"
+          >
+            Group
+          </a>
+          <a
+            href="https://t.me/PulseNotification"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-label hover:text-accent transition-colors no-underline"
+          >
+            Channel
+          </a>
+        </nav>
+
         <button className="md:hidden text-title p-2" onClick={() => setOpen(!open)} aria-label="Menu">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {open ? (
@@ -30,7 +49,22 @@ export function Header() {
 
       {open && (
         <div className="md:hidden border-t border-title/5 bg-background px-4 py-4 space-y-3">
-          <Button className="w-full">Get Started</Button>
+          <a
+            href="https://t.me/PulseNotificationGroup"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-sm text-label hover:text-accent transition-colors no-underline py-2"
+          >
+            Group
+          </a>
+          <a
+            href="https://t.me/PulseNotification"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-sm text-label hover:text-accent transition-colors no-underline py-2"
+          >
+            Channel
+          </a>
         </div>
       )}
     </header>
