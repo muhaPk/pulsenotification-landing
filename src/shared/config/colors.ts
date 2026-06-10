@@ -41,3 +41,7 @@ export const iconBgInactive = '#29313d';
 export const borderColor = '#666';
 export const borderSettingsColor = '#46484C20';
 
+export const sparklineUp = '#22c55e';
+export const sparklineDown = '#ef4444';
+export const sparklineMuted = '#ffffff30';
+

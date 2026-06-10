@@ -5,6 +5,7 @@ import { useGenericGetWeb } from '@/shared/hooks/useGenericGetWeb';
 import { API_ALERTS } from '@/shared/config/endpoints';
 import { Container } from '@/shared/ui/Container';
 import { Sparkline } from '@/shared/ui/Sparkline';
+import { sparklineUp, sparklineDown } from '@/shared/config/colors';
 import { Alert } from '@/shared/types/alert';
 import { formatTime, timeAgo } from '@/shared/lib/date';
 
@@ -76,7 +77,7 @@ export function AlertFeed() {
                         pairType={alert.pairType}
                         width={64}
                         height={36}
-                        color={isPump ? '#22c55e' : '#ef4444'}
+                        color={isPump ? sparklineUp : sparklineDown}
                         highlight={isPump ? 'up' : 'down'}
                         createdAt={alert.createdAt}
                       />

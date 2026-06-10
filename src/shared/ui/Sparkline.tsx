@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { sparklineUp, sparklineDown, sparklineMuted } from '@/shared/config/colors';
 
 type Candle = { time: number; price: number };
 
@@ -23,11 +24,14 @@ function klinesBaseUrl(pairType: string): string {
 
 const inflight = new Map<string, Promise<Candle[]>>();
 
-async function fetchSparklineData(symbol: string, pairType: string): Promise<Candle[]> {
-  const key = `${symbol}_${pairType}`;
+async function fetchSparklineData(symbol: string, pairType: string, createdAt?: string): Promise<Candle[]> {
+  const key = createdAt ? `${symbol}_${pairType}_${createdAt}` : `${symbol}_${pairType}`;
   if (inflight.has(key)) return inflight.get(key)!;
 
-  const url = `${klinesBaseUrl(pairType)}?symbol=${symbol.toUpperCase()}&interval=1m&limit=90`;
+  let url = `${klinesBaseUrl(pairType)}?symbol=${symbol.toUpperCase()}&interval=1m&limit=60`;
+  if (createdAt) {
+    url += `&endTime=${new Date(createdAt).getTime()}`;
+  }
   const promise = (async () => {
     try {
       const res = await fetch(url);
@@ -76,12 +80,12 @@ export function Sparkline({ symbol, pairType = 'spot', data: staticData, width =
 
     let cancelled = false;
 
-    fetchSparklineData(symbol, pairType).then((result) => {
+    fetchSparklineData(symbol, pairType, createdAt).then((result) => {
       if (!cancelled) setCandles(result);
     });
 
     return () => { cancelled = true; };
-  }, [symbol, pairType, staticData]);
+  }, [symbol, pairType, staticData, createdAt]);
 
   const { beforePath, midPath, afterPath, hasHighlight } = useMemo(() => {
     if (!candles || candles.length < 2)
@@ -134,8 +138,8 @@ export function Sparkline({ symbol, pairType = 'spot', data: staticData, width =
   if (!candles || candles.length < 2) return null;
 
   const prices = candles.map((c) => c.price);
-  const hlColor = highlight === 'up' ? '#22c55e' : '#ef4444';
-  const resolvedColor = color ?? (prices[prices.length - 1] >= prices[0] ? '#22c55e' : '#ef4444');
+  const hlColor = highlight === 'up' ? sparklineUp : sparklineDown;
+  const resolvedColor = color ?? (prices[prices.length - 1] >= prices[0] ? sparklineUp : sparklineDown);
 
   return (
     <svg
@@ -144,37 +148,28 @@ export function Sparkline({ symbol, pairType = 'spot', data: staticData, width =
       viewBox={`0 0 ${width} ${height}`}
       className="shrink-0"
     >
-      {hasHighlight ? (
-        <>
-          <path
-            d={beforePath}
-            stroke="#ffffff30"
-            strokeWidth="1.5"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d={midPath}
-            stroke={hlColor}
-            strokeWidth="1.5"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d={afterPath}
-            stroke="#ffffff30"
-            strokeWidth="1.5"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </>
-      ) : (
+      <path
+        d={beforePath}
+        stroke={highlight ? sparklineMuted : resolvedColor}
+        strokeWidth="1.5"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {hasHighlight && (
         <path
-          d={beforePath}
-          stroke={resolvedColor}
+          d={midPath}
+          stroke={hlColor}
+          strokeWidth="1.5"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      )}
+      {hasHighlight && (
+        <path
+          d={afterPath}
+          stroke={sparklineMuted}
           strokeWidth="1.5"
           fill="none"
           strokeLinecap="round"
